@@ -46,3 +46,18 @@ two_third = Fraction(2, 3)
 one_tenth = Fraction('0.1')
 arb = Fraction(2456/27889)
 print(one_tenth, arb)
+
+
+c1 =complex(5, 3)
+print(c1)
+
+x = -1
+from cmath import sqrt
+print(sqrt(-1))
+
+# 5+ 3j  --> 5 - 3j
+
+print(c1 * c1.conjugate())
+
+
+# abs
