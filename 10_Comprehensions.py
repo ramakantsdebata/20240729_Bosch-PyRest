@@ -33,6 +33,12 @@ attribs = [attrib   for attrib in dir(int)    if attrib.startswith('__') == Fals
 print(attribs)
 
 
+methods = [attrib   
+           for attrib in dir(int)    
+           if attrib.startswith('__') == False and callable(getattr(int, attrib))]
+print(methods)
+
+
 # class MyType
 # {
 #     ksdklfsjld
@@ -44,3 +50,19 @@ print(attribs)
 
 # obj = MyType();
 # obj(1, 2);
+
+'''
+while (ret_val := Func1()) > x:
+    val = ret_val
+
+ret_val = Func1()
+
+ksjdfl
+
+sdfsdlhjkl
+
+sdfsdf
+
+while ret_val > x:
+    pass
+'''
