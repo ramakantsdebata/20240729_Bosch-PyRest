@@ -99,19 +99,33 @@ Method(l1)
 
 ## Variable Args
 
-def Add(*data):
-    # print(a, b, data)
-    if isinstance(data[0], int):
-        sum = 0
-    else:
-        sum = ''
+def Add1(a, b, *data):
+    print(a, b, data)
+    sum  = a + b
     for val in data:
         sum += val
     return sum
 
+def Add2(*data):
+    if isinstance(data[0], int):
+        sum = 0
+    else:
+        sum = ''
+
+    for val in data:
+        sum += val
+    return sum
+
+def Add3(*data):
+    sum = data[0]
+
+    for idx in range(1, len(data)):
+        sum += data[idx]
+    return sum
+
 # print(Add())
 # print(Add(1))
-print(Add(1, 2))
-print(Add(1, 2, 3, 4, 5))
+print(Add3(1, 2))
+print(Add3(1, 2, 3, 4, 5))
 
-print(Add("Hi", "There", "Howdy"))
+print(Add3("Hi", "There", "Howdy"))
