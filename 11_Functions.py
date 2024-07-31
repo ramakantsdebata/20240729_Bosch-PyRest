@@ -98,7 +98,7 @@ Method(l1)
 '''
 
 ## Variable Args
-
+'''
 def Add1(a, b, *data):
     print(a, b, data)
     sum  = a + b
@@ -129,3 +129,67 @@ print(Add3(1, 2))
 print(Add3(1, 2, 3, 4, 5))
 
 print(Add3("Hi", "There", "Howdy"))
+'''
+
+def Sentence(**kwWords):          # Keyworded args / kwargs
+    res = ''
+    for k, v in kwWords.items():
+        print(k, v)
+
+    for word in kwWords.values():
+        res = res + word + ' '
+
+    return res
+
+print(Sentence(First = "Hi", Second = "there"))
+# print(Sentence('Hi', 'there', 'how', 'is', 'the', 'weather', 'today', 'over', 'there'))
+
+
+## Special Args
+# / --  Args to the left of '/' should only be positional
+# * -- Args to the right of the '*' should only be keyworded
+'''
+def method(a, b=0 , /, c=0, d=0, *, e=0, f=0):
+    pass
+
+method(1)
+method(1, 2)
+# method(1, b = 2)  # Error
+
+method(1, 2, 3)
+method(1, 2, 3, d = 4)
+
+# method(1, 2, 3, 4, 5) # Error
+method(1, 2, 3, 4, e=5)
+
+def open_cust(name, /, mode = 'r', newline = '\n', *, encoding = 'utf-8', closefd:bool = True):
+    pass
+
+open_cust("file.txt")
+# open_cust(name="file.txt")
+open_cust("file.txt", encoding='utf-16', newline='')
+
+
+def wrapper(*vArgs, **kwArgs):  ## Packing the received data into a collection
+    print("Calling the method")
+    localFn = open_cust(*vArgs, **kwArgs)  ## Unpack the collections
+    pass
+
+wrapper("file.txt", encoding='utf-16', newline='')
+'''
+
+def GenericArgList(*vArgs, **kwArgs):
+    print("Arguments are :-")
+    for args in vArgs:
+        print(args)
+
+    for k, v in kwArgs.items():
+        print(k, v)
+
+    print("Done\n\n")
+
+GenericArgList()
+GenericArgList(1)
+GenericArgList(1, 2, 3)
+GenericArgList(a= 1, b = 2, c = 3)
+GenericArgList(1, 2, 3, a= 1, b = 2, c = 3)
