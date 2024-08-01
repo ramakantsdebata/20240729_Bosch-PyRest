@@ -1,4 +1,4 @@
-__all__ = ['greet', 'greetName', 'greetInteract']
+# __all__ = ['greet', 'greetName', 'greetInteract']
 
 def greet():
     print("Hi")
