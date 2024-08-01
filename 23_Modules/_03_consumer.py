@@ -1,6 +1,9 @@
 from _01_provider import greet
+from _01_provider import greetName
+
 
 greet()
+greetName("Rakesh")
 
 
 '''def PerformOp():
