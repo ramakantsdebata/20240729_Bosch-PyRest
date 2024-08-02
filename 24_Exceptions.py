@@ -22,12 +22,24 @@ def Consumer():
     try:
         printData(10)
         print("This will be skipped")
+        # Possible cleanup
     except (TypeError, ValueError) as ex:
         print("Exception in the second statement", "\n", ex)
-    except ZeroDivisionError as ex:
-        print("ZeroDivisionError-specific handler", ex)
-    except Exception:
-        print("Intermediate Exception Handler")
+        # Possible cleanup
+        raise FileNotFoundError("Log file not found")           # <-- New, distinct exception raised
+    except ZeroDivisionError as ex:                             # <--Partially handle the problem scenario 
+        print("ZeroDivisionError-specific handler", ex)         # and delegate the rest outwards
+        raise                                                   # Re-raise the earlier exception
+    # except Exception:
+    #     print("Intermediate Exception Handler")
+    finally:
+        # Exceutes this block, irrespective of exception occurance
+        # Generally, used for resource cleanup
+        # Possible cleanup
+        print("Cleanup")
+
+    # Possible cleanup
+
     # if ret is not None:
     #     print("Some Error")
 
@@ -36,7 +48,8 @@ def Consumer():
 try:
     Consumer()
     print("Any print")
-except Exception:
+except Exception as ex:
     print("After the call to Consumer")
+    
 
 print("Exiting the program now.")
