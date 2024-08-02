@@ -21,7 +21,7 @@ print(resFil)
 
 from functools import reduce
 
-def Concat( a, b):
+def Concat(a, b):
     return a + " " + b
 
 resRed = reduce(Concat, lst)
