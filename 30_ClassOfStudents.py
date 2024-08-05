@@ -24,6 +24,7 @@ def Test():
     clsRoom1 = ClassRoom()
     clsRoom2 = ClassRoom(students)
 
+    clsRoom1.add(Student(1, "Vidya", 3.5))
     clsRoom2.add(Student(5, "Manish", 3.5))
 
     print(clsRoom1)
