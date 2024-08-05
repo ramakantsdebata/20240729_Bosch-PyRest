@@ -5,3 +5,5 @@
 ## Output files
 **/satish.txt
 **/sample.txt
+**/*.json
+**/*.pkl
