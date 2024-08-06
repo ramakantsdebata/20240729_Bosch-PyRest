@@ -13,7 +13,7 @@ db = [
     {"id": 6, "size": "m", "fuel": "petrol",    "doors": 5, "transmission": "manual"},
     {"id": 7, "size": "l", "fuel": "disel",     "doors": 5, "transmission": "manual"},
     {"id": 8, "size": "l", "fuel": "electric",  "doors": 5, "transmission": "auto"  },
-    {"id": 9, "size": "l", "fuel": "hybrid",    "doors": 5, "transmission": "auto"  }
+    {"id": 9, "size": "l", "fuel": "hybrid",    "doors": 5, "transmission": "auto"  },
 ]
 
 
