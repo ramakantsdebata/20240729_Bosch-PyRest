@@ -37,3 +37,12 @@ def date():
 def favicon():
     """Serves the icon file"""
     return FileResponse(os.path.join("static", "favicon.ico"))
+
+@app.get("/api/cars")
+def get_cars(size: str|None = None, doors: int|None = None):
+    result = db
+    if size is not None:
+        result = [car for car in result if car['size'] == size]
+    if doors is not None:
+        result = [car for car in result if car['doors'] == doors]
+    return result
