@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-
+import json
 
 class Car(BaseModel):
     id: int
@@ -7,6 +7,13 @@ class Car(BaseModel):
     fuel: str
     doors: int
     transmission: str
+
+
+fileName = "cars.json"
+def load_lib():
+    with open(fileName, "r") as file:
+        ret_val = json.load(file)
+    return ret_val
 
 
 if __name__ == "__main__":
