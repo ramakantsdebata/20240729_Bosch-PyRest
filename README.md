@@ -10,6 +10,7 @@
 * [Pep-8 Python Doc](https://peps.python.org/pep-0008/)
 * [Pep8.org](https://pep8.org/)
 * [Docstring Conventions](https://peps.python.org/pep-0257/)
+* [HTTP Response codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
 
 
 ### Connect
