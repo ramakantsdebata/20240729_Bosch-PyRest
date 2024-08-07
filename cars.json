@@ -82,5 +82,12 @@
         "fuel": "petrol",
         "doors": 4,
         "transmission": "auto"
+    },
+    {
+        "id": 13,
+        "size": "s",
+        "fuel": "electric",
+        "doors": 4,
+        "transmission": "auto"
     }
 ]
