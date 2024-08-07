@@ -8,11 +8,21 @@ from .schema import load_lib
 from .schema import save_db
 from .schema import Car
 from .schema import CarInput
+from .schema import TripInput, Trip
+
+
+'''
+GET - Fetch/Read
+POST - Add/Write
+PUT - UPdate an existing object
+DELETE - Delete an object
+'''
+
 
 db = load_lib()
 
 
-app = FastAPI()
+app = FastAPI(title="Bosch Training")
 
 
 @app.get("/")
@@ -62,7 +72,7 @@ def add_car(carIn: CarInput):
     return car
 
 
-@app.put("/api/cars/{id}")
+@app.put("/api/cars/{id}", response_model=Car)
 def update_car(id: int, new_car: CarInput) -> Car:
     result = [car for car in db if car.id == id]
 
@@ -76,6 +86,32 @@ def update_car(id: int, new_car: CarInput) -> Car:
         return car
     else:
         raise HTTPException(status_code=404, detail=f"No car with id={id}")
+
+
+@app.delete("/api/cars/{id}", status_code=204)
+def delete_car(id: int):
+    result = [car for car in db if car.id == id]
+    if result:
+        car = result[0]
+        db.remove(car)
+        save_db(db)
+    else:
+        raise HTTPException(status_code=404, detail=f"No car with id={id}")
+
+
+@app.post("/api/cars/{car_id}/trips", response_model=Trip)
+def add_trip(car_id: int, trip: TripInput) -> Trip:
+    matches = [car for car in db if car.id == car_id]
+    if matches:
+        car = matches[0]
+        new_trip = Trip(id = len(car.trips) + 1,
+                        start = trip.start, end = trip.end,
+                        description = trip.description)
+        car.trips.append(new_trip)
+        save_db(db)
+        return new_trip
+    else:
+        raise HTTPException(status_code=404, detail=f"No car with id={car_id}")
 
 
 if __name__ == '__main__':

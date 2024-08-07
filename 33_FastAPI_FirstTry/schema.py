@@ -1,6 +1,17 @@
 from pydantic import BaseModel
 import json
 
+
+class TripInput(BaseModel):
+    start: int
+    end: int
+    description: str
+
+
+class Trip(TripInput):
+    id: int
+
+
 class CarInput(BaseModel):
     size: str
     fuel: str = "electric"
@@ -10,6 +21,7 @@ class CarInput(BaseModel):
 
 class Car(CarInput):
     id: int
+    trips: list[Trip] = []
 
 
 fileName = "cars.json"
