@@ -1,5 +1,7 @@
 # Python programming with REST API using FastAPI
 * REPL - Read, Evaluate, Print, Loopback
+* Running the FastAPI app in uvicorn server:
+    * uvicorn 33_FastAPI_FirstTry.car_sharing:app --reload
 
 
 ### Links

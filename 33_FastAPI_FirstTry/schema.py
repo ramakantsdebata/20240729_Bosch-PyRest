@@ -12,7 +12,9 @@ class Car(BaseModel):
 fileName = "cars.json"
 def load_lib():
     with open(fileName, "r") as file:
-        ret_val = json.load(file)
+        cars = json.load(file)
+    
+    ret_val = [Car.model_validate(car) for car in cars]
     return ret_val
 
 
