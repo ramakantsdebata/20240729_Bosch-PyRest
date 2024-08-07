@@ -4,10 +4,18 @@ from datetime import datetime
 from fastapi.responses import FileResponse
 import os
 import uvicorn
+
+from contextlib import asynccontextmanager
+
+from sqlmodel import create_engine
+from sqlmodel import SQLModel
+from sqlmodel import Session
+
 from .schema import load_lib
 from .schema import save_db
 from .schema import Car
 from .schema import CarInput
+from .schema import Car_DBModel
 from .schema import TripInput, Trip
 
 
@@ -22,7 +30,21 @@ DELETE - Delete an object
 db = load_lib()
 
 
-app = FastAPI(title="Bosch Training")
+engine = create_engine(
+    "sqlite:///carsharing.db",
+    connect_args={"check_same_thread": False},
+    echo=True
+)
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    SQLModel.metadata.create_all(engine)    # <-- Startup code
+    yield                                   # <-- yield to the app object
+    print("That's all folks!")              # <-- Shutdown code
+
+
+app = FastAPI(title="Bosch Training", lifespan=lifespan)
 
 
 @app.get("/")
@@ -51,6 +73,7 @@ def get_cars(size: str|None = None, doors: int|None = None) -> list[Car]:
         result = [car for car in result if car.doors == doors]
     return result
 
+
 @app.get("/api/cars/{id}")
 def car_by_id(id: int) -> Car:
     result = [car for car in db if car.id == id]
@@ -60,16 +83,26 @@ def car_by_id(id: int) -> Car:
         raise HTTPException(status_code=404, detail=f"No car with id={id}")
 
 
-@app.post("/api/cars")
-def add_car(carIn: CarInput):
-    car = Car(size=carIn.size,
-              fuel=carIn.fuel,
-              doors=carIn.doors,
-              transmission=carIn.transmission,
-              id=len(db)+1)
-    db.append(car)
-    save_db(db)
-    return car
+@app.post("/api/cars", response_model=Car_DBModel)
+def add_car(car: CarInput) -> Car_DBModel:
+    with Session(engine) as session:
+        new_car = Car_DBModel.model_validate(car)
+        session.add(new_car)
+        session.commit()
+        session.refresh(new_car)
+        return new_car
+
+
+@app.post("/api/cars/migrate")
+def migrate_data_to_db() -> list[Car_DBModel]:
+    '''Currently, will duplicate if called multiple times.
+    Trips data is not migrated as no data model for trips created yet.'''
+    with Session(engine) as session:
+        for car in db:
+            new_car = Car_DBModel.model_validate(car)
+            session.add(new_car)
+        session.commit()
+    return db
 
 
 @app.put("/api/cars/{id}", response_model=Car)

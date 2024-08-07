@@ -1,3 +1,4 @@
 multipledispatch
 fastapi[all]
 # pip install "fastapi[all]"
+sqlmodel

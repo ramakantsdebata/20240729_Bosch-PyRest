@@ -3,6 +3,8 @@
 * Running the FastAPI app in uvicorn server:
     * uvicorn 33_FastAPI_FirstTry.car_sharing:app --reload
 
+### VS Code Extensions
+* "SQLite Viewer" by Florian Klampfer
 
 ### Links
 * [Python Documentation](https://docs.python.org/3/)
