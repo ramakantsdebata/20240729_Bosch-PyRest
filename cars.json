@@ -5,7 +5,26 @@
         "doors": 3,
         "transmission": "auto",
         "id": 1,
-        "trips": []
+        "trips": [
+            {
+                "start": 0,
+                "end": 5,
+                "description": "Groceries",
+                "id": 1
+            },
+            {
+                "start": 5,
+                "end": 605,
+                "description": "Mumbai trip",
+                "id": 2
+            },
+            {
+                "start": 605,
+                "end": 815,
+                "description": "Lonavala trip",
+                "id": 3
+            }
+        ]
     },
     {
         "size": "s",
@@ -16,15 +35,9 @@
         "trips": [
             {
                 "start": 0,
-                "end": 10,
-                "description": "Shopping",
-                "id": 1
-            },
-            {
-                "start": 10,
                 "end": 300,
-                "description": "Vacation",
-                "id": 2
+                "description": "Bhigwan sanctuary",
+                "id": 1
             }
         ]
     },
@@ -50,7 +63,26 @@
         "doors": 5,
         "transmission": "auto",
         "id": 5,
-        "trips": []
+        "trips": [
+            {
+                "start": 0,
+                "end": 12,
+                "description": "Office",
+                "id": 1
+            },
+            {
+                "start": 12,
+                "end": 450,
+                "description": "Ujjain",
+                "id": 2
+            },
+            {
+                "start": 450,
+                "end": 815,
+                "description": "Konkan belt",
+                "id": 3
+            }
+        ]
     },
     {
         "size": "m",
@@ -62,7 +94,7 @@
     },
     {
         "size": "l",
-        "fuel": "disel",
+        "fuel": "diesel",
         "doors": 5,
         "transmission": "manual",
         "id": 7,
@@ -74,7 +106,26 @@
         "doors": 5,
         "transmission": "auto",
         "id": 8,
-        "trips": []
+        "trips": [
+            {
+                "start": 0,
+                "end": 20,
+                "description": "Doctor visit",
+                "id": 1
+            },
+            {
+                "start": 20,
+                "end": 30,
+                "description": "Groceries",
+                "id": 2
+            },
+            {
+                "start": 30,
+                "end": 40,
+                "description": "Servicing",
+                "id": 3
+            }
+        ]
     },
     {
         "size": "l",
@@ -82,22 +133,6 @@
         "doors": 5,
         "transmission": "auto",
         "id": 9,
-        "trips": []
-    },
-    {
-        "size": "s",
-        "fuel": "hybrid",
-        "doors": 4,
-        "transmission": "auto",
-        "id": 10,
-        "trips": []
-    },
-    {
-        "size": "s",
-        "fuel": "petrol",
-        "doors": 4,
-        "transmission": "auto",
-        "id": 12,
         "trips": []
     }
 ]
