@@ -1,12 +1,15 @@
 from pydantic import BaseModel
 import json
 
-class Car(BaseModel):
-    id: int
+class CarInput(BaseModel):
     size: str
     fuel: str
     doors: int
     transmission: str
+
+
+class Car(CarInput):
+    id: int
 
 
 fileName = "cars.json"

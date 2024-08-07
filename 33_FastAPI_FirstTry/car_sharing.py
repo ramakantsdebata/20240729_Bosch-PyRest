@@ -7,6 +7,7 @@ import uvicorn
 from .schema import load_lib
 from .schema import save_db
 from .schema import Car
+from .schema import CarInput
 
 db = load_lib()
 
@@ -50,7 +51,12 @@ def car_by_id(id: int) -> dict:
 
 
 @app.post("/api/cars")
-def add_car(car: Car):
+def add_car(carIn: CarInput):
+    car = Car(size=carIn.size,
+              fuel=carIn.fuel,
+              doors=carIn.doors,
+              transmission=carIn.transmission,
+              id=len(db)+1)
     db.append(car)
     save_db(db)
     return car
