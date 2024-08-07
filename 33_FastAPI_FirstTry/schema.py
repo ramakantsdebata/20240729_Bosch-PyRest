@@ -10,7 +10,7 @@ class Car(BaseModel):
 
 
 fileName = "cars.json"
-def load_lib():
+def load_lib() -> list[Car]:
     with open(fileName, "r") as file:
         cars = json.load(file)
     
