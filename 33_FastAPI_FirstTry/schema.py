@@ -1,4 +1,5 @@
 from sqlmodel import SQLModel, Field
+from sqlmodel import Relationship
 import json
 
 
@@ -8,19 +9,25 @@ class TripInput(SQLModel):
     description: str
 
 
+class Trip_DBModel(TripInput, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    car_id: int = Field(foreign_key="car_dbmodel.id")
+    car: "Car_DBModel" = Relationship(back_populates="trips")
+
+
 class Trip(TripInput):
     id: int
 
 
 class CarInput(SQLModel):
     size: str
-    fuel: str = "electric"
+    fuel: str | None = "electric"
     doors: int
-    transmission: str = "manual"
-
+    transmission: str | None = "auto"
 
 class Car_DBModel(CarInput, table=True):
     id: int|None = Field(primary_key=True, default=None)
+    trips: list[Trip_DBModel] = Relationship(back_populates="car")
 
 
 class Car(CarInput):
