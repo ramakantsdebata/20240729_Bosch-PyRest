@@ -3,9 +3,9 @@ import json
 
 class CarInput(BaseModel):
     size: str
-    fuel: str
+    fuel: str = "electric"
     doors: int
-    transmission: str
+    transmission: str = "manual"
 
 
 class Car(CarInput):
@@ -15,11 +15,11 @@ class Car(CarInput):
 fileName = "cars.json"
 def load_lib() -> list[Car]:
     with open(fileName, "r") as file:
-        cars = json.load(file)
+        lstDtCars = json.load(file)
     
     # ret_val = [Car.model_validate(car) for car in cars]
     ret_val = []
-    for dt in cars:
+    for dt in lstDtCars:
         car_obj = Car.model_validate(dt)
         ret_val.append(car_obj)
     return ret_val

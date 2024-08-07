@@ -33,7 +33,7 @@ async def favicon():
     return FileResponse(os.path.join("static", "favicon.ico"))
 
 @app.get("/api/cars")
-def get_cars(size: str|None = None, doors: int|None = None) -> list:
+def get_cars(size: str|None = None, doors: int|None = None) -> list[Car]:
     result = db
     if size is not None:
         result = [car for car in result if car.size == size]
@@ -42,7 +42,7 @@ def get_cars(size: str|None = None, doors: int|None = None) -> list:
     return result
 
 @app.get("/api/cars/{id}")
-def car_by_id(id: int) -> dict:
+def car_by_id(id: int) -> Car:
     result = [car for car in db if car.id == id]
     if result:
         return result[0]
@@ -60,6 +60,22 @@ def add_car(carIn: CarInput):
     db.append(car)
     save_db(db)
     return car
+
+
+@app.put("/api/cars/{id}")
+def update_car(id: int, new_car: CarInput) -> Car:
+    result = [car for car in db if car.id == id]
+
+    if result:
+        car = result[0]
+        car.size = new_car.size
+        car.fuel = new_car.fuel
+        car.doors = new_car.doors
+        car.transmission = new_car.transmission
+        save_db(db)
+        return car
+    else:
+        raise HTTPException(status_code=404, detail=f"No car with id={id}")
 
 
 if __name__ == '__main__':
