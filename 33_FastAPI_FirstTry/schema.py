@@ -18,6 +18,11 @@ def load_lib() -> list[Car]:
     return ret_val
 
 
+def save_db(list_of_cars: list[Car]):
+    # json.dump(db, open(fileName, "w"))
+    with open(fileName, "w") as file:
+        json.dump([car.model_dump() for car in list_of_cars], file, indent=4)
+
 if __name__ == "__main__":
     c1 = Car(id=1, size="m", fuel="petrol", doors=4, transmission="auto")
     print(c1)

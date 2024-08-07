@@ -5,6 +5,8 @@ from fastapi.responses import FileResponse
 import os
 import uvicorn
 from .schema import load_lib
+from .schema import save_db
+from .schema import Car
 
 db = load_lib()
 
@@ -45,6 +47,13 @@ def car_by_id(id: int) -> dict:
         return result[0]
     else:
         raise HTTPException(status_code=404, detail=f"No car with id={id}")
+
+
+@app.post("/api/cars")
+def add_car(car: Car):
+    db.append(car)
+    save_db(db)
+    return car
 
 
 if __name__ == '__main__':

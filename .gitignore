@@ -5,5 +5,5 @@ word
 ## Output files
 **/satish.txt
 **/sample.txt
-**/*.json
+**/Students.json
 **/*.pkl
