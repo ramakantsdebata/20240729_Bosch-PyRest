@@ -8,7 +8,7 @@ from sqlmodel import SQLModel
 
 from .db import engine
 from .routers import cars
-
+from .routers import web
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -18,13 +18,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Car Sharing", lifespan=lifespan)
 app.include_router(cars.router)
-# app.include_router(bikes.router)
-
-
-@app.get("/favicon.ico", include_in_schema=False)
-async def favicon():
-    '''Serves the favicon.ico file'''
-    return FileResponse(os.path.join('static', 'favicon.ico'))
+app.include_router(web.router)
 
 
 if __name__ == '__main__':

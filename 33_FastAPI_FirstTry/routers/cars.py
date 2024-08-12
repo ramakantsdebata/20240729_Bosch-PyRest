@@ -26,7 +26,7 @@ router = APIRouter(prefix="/api/cars")
 
 # If we want to filter based on 'size' / 'doors' / both / None
 @router.get("/")
-def get_cars(size: str|None = None, doors: int|None = None, session: Session = Depends(get_session)) -> list:
+def get_cars(size: str|None = None, doors: int|None = None, session: Session = Depends(get_session)) -> list[Car]:
     query = select(Car_DBModel)
     if size is not None:
         query = query.where(Car_DBModel.size == size)
@@ -40,7 +40,6 @@ def get_cars(size: str|None = None, doors: int|None = None, session: Session = D
 def car_by_id(id: int, session: Session = Depends(get_session)) -> Car:
     car = session.get(Car_DBModel, id)
     if car:
-        print(type(car))
         return car
     else:
         raise HTTPException(status_code=404, detail=f"No car with id = {id}.")
