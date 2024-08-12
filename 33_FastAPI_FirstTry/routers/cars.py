@@ -95,11 +95,17 @@ def change_car(id: int, new_data: CarInput, session: Session = Depends(get_sessi
         raise HTTPException(status_code=404, detail=f"No car with id={id}.")
 
 
+class BadTripException(Exception):  # Custom Exception Class
+    pass
+
+
 @router.post("/api/cars/{car_id}/trips", response_model=Trip_DBModel)
 def add_trip(car_id: int, trip: TripInput, session: Session = Depends(get_session)) -> Trip_DBModel:
     car = session.get(Car_DBModel, car_id)
     if car:
         new_trip = Trip_DBModel.model_validate(trip, update={'car_id': car_id, 'id': None})
+        if new_trip.end < new_trip.start:
+            raise BadTripException("Trip end before start")
         car.trips.append(new_trip)
         session.commit()
         session.refresh(new_trip)
