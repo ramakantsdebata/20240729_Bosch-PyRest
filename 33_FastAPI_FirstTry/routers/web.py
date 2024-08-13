@@ -1,6 +1,7 @@
 import os
 from fastapi.responses import FileResponse
 from fastapi import APIRouter
+from fastapi import Cookie
 from starlette.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from fastapi import Request
@@ -16,7 +17,8 @@ router = APIRouter()
 templates = Jinja2Templates(directory="33_FastAPI_FirstTry/templates")
 
 @router.get("/", response_class=HTMLResponse)
-def home(request: Request):
+def home(request: Request, cars_cookie: str|None = Cookie(None)):
+    print(cars_cookie)
     return templates.TemplateResponse("home.html",
                                       {"request": request})
 
