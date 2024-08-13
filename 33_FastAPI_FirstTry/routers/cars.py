@@ -18,6 +18,9 @@ from ..schema import CarInput
 from ..schema import Car_DBModel
 from ..schema import TripInput, Trip
 from ..schema import Trip_DBModel
+from ..schema import User_DBModel
+
+from .auth import get_current_user
 
 
 db = load_lib()
@@ -45,8 +48,11 @@ def car_by_id(id: int, session: Session = Depends(get_session)) -> Car:
         raise HTTPException(status_code=404, detail=f"No car with id = {id}.")
 
 
+# 5. In add_car(), depend on the get_current_user(), to ensure authenticated access.
+
 @router.post("/", response_model=Car_DBModel)
-def add_car(car: CarInput, session: Session = Depends(get_session)) -> Car_DBModel:
+def add_car(car: CarInput, session: Session = Depends(get_session),
+            user: User_DBModel = Depends(get_current_user)) -> Car_DBModel:
     new_car = Car_DBModel.model_validate(car)
     session.add(new_car)
     session.commit()

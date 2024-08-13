@@ -15,6 +15,7 @@
 * [Pep8.org](https://pep8.org/)
 * [Docstring Conventions](https://peps.python.org/pep-0257/)
 * [HTTP Response codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+* [HTTP Basic Auth](https://fastapi.tiangolo.com/advanced/security/http-basic-auth/)
 
 ### Post test
 * https://forms.gle/UYmJiRk5muoYwq9P9

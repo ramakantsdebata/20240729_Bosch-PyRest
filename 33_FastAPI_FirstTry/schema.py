@@ -1,6 +1,50 @@
 from sqlmodel import SQLModel, Field
 from sqlmodel import Relationship
+from sqlmodel import Column, VARCHAR
 import json
+from passlib.context import CryptContext
+
+
+pwd_context = CryptContext(schemes=["bcrypt"])
+
+# 1. Add a User class
+# Should be a SQLModel, having,
+#   * id (int)
+#   * username (str)
+#   * password_hash (str, defaults to "")
+
+# 2. Install the passlib[bcrypt] module 
+# (Use the v3.2.0, as the current one has incompatibility issues)
+# Import the passlib.context.CryptContext
+# Create a pwd_context
+# Add set_password() & verify_password() methods to User_DBModel
+
+# 3. Set database options, like 
+#   * unique constraint, to prohibit duplicate username
+#   * index, to speed up searching username
+
+# Start the application and see the table being created in the logs,
+# including the unique constraint and the index
+
+
+class User(SQLModel):
+    id: int
+    username: str
+
+
+class User_DBModel(SQLModel, table=True):
+    id: int|None = Field(default=None, primary_key=True)
+    username: str = Field(sa_column=Column("username", VARCHAR, unique=True, index=True))
+    password_hash: str = ""
+    # install passlib[bcrypt] for password hashing
+
+    def set_password(self, password):
+        """Setting the passwords actually sets the password_hash"""
+        self.password_hash = pwd_context.hash(password)
+
+    def verify_password(self, password):
+        """Verify given password by hashing and comparing with the password_hash"""
+        return pwd_context.verify(password, self.password_hash)
 
 
 class TripInput(SQLModel):

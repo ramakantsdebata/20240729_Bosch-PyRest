@@ -2,3 +2,5 @@ multipledispatch
 fastapi[all]
 # pip install "fastapi[all]"
 sqlmodel
+passlib[bcrypt]
+bcrypt==3.2.0
