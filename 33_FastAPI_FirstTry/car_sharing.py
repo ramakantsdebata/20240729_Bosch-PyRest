@@ -13,6 +13,7 @@ from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 from .db import engine
 from .routers import cars
 from .routers import web
+from .routers import auth
 from .routers.cars import BadTripException
 
 @asynccontextmanager
@@ -25,6 +26,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(title="Car Sharing", lifespan=lifespan)
 app.include_router(cars.router)
 app.include_router(web.router)
+app.include_router(auth.router)
 
 
 @app.exception_handler(BadTripException)

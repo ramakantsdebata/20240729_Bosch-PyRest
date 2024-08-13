@@ -16,6 +16,10 @@
 * [Docstring Conventions](https://peps.python.org/pep-0257/)
 * [HTTP Response codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
 * [HTTP Basic Auth](https://fastapi.tiangolo.com/advanced/security/http-basic-auth/)
+* OAuth2
+    * [Simple OAuth2 with Password and Bearer](https://fastapi.tiangolo.com/tutorial/security/simple-oauth2/)
+    * [OAuth2 with Password (and hashing), Bearer with JWT tokens](https://fastapi.tiangolo.com/tutorial/security/oauth2-jwt/)
+    * [OAuth2 scopes](https://fastapi.tiangolo.com/advanced/security/oauth2-scopes/)
 
 ### Post test
 * https://forms.gle/UYmJiRk5muoYwq9P9
