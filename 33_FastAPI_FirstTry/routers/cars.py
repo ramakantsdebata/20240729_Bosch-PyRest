@@ -1,6 +1,4 @@
 import os
-# import sys
-# sys.path.join(0, "..//..//")
 from fastapi import HTTPException
 from fastapi import Depends
 from fastapi import APIRouter
@@ -8,26 +6,25 @@ from sqlmodel import Session
 from sqlmodel import select
 from fastapi.responses import FileResponse
 
-from ..db import get_session
+from db import get_session
 
-from ..schema import load_lib
-from ..schema import save_db
+from schema import load_lib
+from schema import save_db
 
-from ..schema import Car
-from ..schema import CarInput
-from ..schema import Car_DBModel
-from ..schema import TripInput, Trip
-from ..schema import Trip_DBModel
-from ..schema import User_DBModel
+from schema import Car
+from schema import CarInput
+from schema import Car_DBModel
+from schema import TripInput, Trip
+from schema import Trip_DBModel
+from schema import User_DBModel
 
-from .auth import get_current_user
+from routers.auth import get_current_user
 
 
 db = load_lib()
 
 router = APIRouter(prefix="/api/cars")
 
-# If we want to filter based on 'size' / 'doors' / both / None
 @router.get("/")
 def get_cars(size: str|None = None, doors: int|None = None, session: Session = Depends(get_session)) -> list[Car]:
     query = select(Car_DBModel)
@@ -47,8 +44,6 @@ def car_by_id(id: int, session: Session = Depends(get_session)) -> Car:
     else:
         raise HTTPException(status_code=404, detail=f"No car with id = {id}.")
 
-
-# 5. In add_car(), depend on the get_current_user(), to ensure authenticated access.
 
 @router.post("/", response_model=Car_DBModel)
 def add_car(car: CarInput, session: Session = Depends(get_session),

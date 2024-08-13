@@ -10,11 +10,11 @@ from sqlmodel import SQLModel
 from starlette.responses import JSONResponse
 from starlette.status import HTTP_422_UNPROCESSABLE_ENTITY
 
-from .db import engine
-from .routers import cars
-from .routers import web
-from .routers import auth
-from .routers.cars import BadTripException
+from db import engine
+from routers import cars
+from routers import web
+from routers import auth
+from routers.cars import BadTripException
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
